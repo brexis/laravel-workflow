@@ -81,9 +81,35 @@ use Brexis\LaravelWorkflow\Traits\WorkflowTrait;
 class BlogPost extends Model
 {
   use WorkflowTrait;
-
 }
 ```
+
+When using eliquent you will need to add 2 [mutators](https://laravel.com/docs/5.5/eloquent-mutators) to you model to let the save action work correctly.
+If you named your marking store argument `currentPlace` your model should contain this:
+
+
+```php
+<?php
+...
+
+class BlogPost extends Model
+{
+    ...
+  
+    public function setCurrentPlaceAttribute($value)
+    {
+        $this->attributes['currentPlace'] = json_encode($value);
+    }
+
+    public function getCurrentPlaceAttribute()
+    {
+        if (isset($this->attributes['currentPlace'])) {
+            return json_decode($this->attributes['currentPlace'], true);
+        }
+    }
+}
+```
+
 ### Usage
 
 ```php
