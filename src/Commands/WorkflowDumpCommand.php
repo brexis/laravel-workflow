@@ -1,6 +1,6 @@
 <?php
 
-namespace Brexis\LaravelWorkflow\Commands;
+namespace Vimily\LaravelWorkflow\Commands;
 
 use Config;
 use Exception;
@@ -11,7 +11,7 @@ use Symfony\Component\Workflow\Workflow as SynfonyWorkflow;
 use Workflow;
 
 /**
- * @author Boris Koumondji <brexis@yahoo.fr>
+ * @author Boris Koumondji <Vimily@yahoo.fr>
  */
 class WorkflowDumpCommand extends Command
 {

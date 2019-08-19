@@ -1,11 +1,11 @@
 <?php
 
-namespace Brexis\LaravelWorkflow\Facades;
+namespace Vimily\LaravelWorkflow\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @author Boris Koumondji <brexis@yahoo.fr>
+ * @author Boris Koumondji <Vimily@yahoo.fr>
  */
 class WorkflowFacade extends Facade
 {

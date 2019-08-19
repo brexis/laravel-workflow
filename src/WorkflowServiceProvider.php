@@ -1,16 +1,16 @@
 <?php
 
-namespace Brexis\LaravelWorkflow;
+namespace Vimily\LaravelWorkflow;
 
 use Illuminate\Support\ServiceProvider;
 
 /**
- * @author Boris Koumondji <brexis@yahoo.fr>
+ * @author Boris Koumondji <Vimily@yahoo.fr>
  */
 class WorkflowServiceProvider extends ServiceProvider
 {
     protected $commands = [
-        'Brexis\LaravelWorkflow\Commands\WorkflowDumpCommand',
+        'Vimily\LaravelWorkflow\Commands\WorkflowDumpCommand',
     ];
 
     /**

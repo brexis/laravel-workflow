@@ -1,11 +1,11 @@
 <?php
 
-namespace Brexis\LaravelWorkflow\Events;
+namespace Vimily\LaravelWorkflow\Events;
 
 use Symfony\Component\Workflow\Event\GuardEvent as SymfonyGuardEvent;
 
 /**
- * @author Boris Koumondji <brexis@yahoo.fr>
+ * @author Boris Koumondji <Vimily@yahoo.fr>
  */
 class GuardEvent extends BaseEvent
 {

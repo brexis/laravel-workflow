@@ -1,8 +1,8 @@
 <?php
 
-namespace Brexis\LaravelWorkflow;
+namespace Vimily\LaravelWorkflow;
 
-use Brexis\LaravelWorkflow\Events\WorkflowSubscriber;
+use Vimily\LaravelWorkflow\Events\WorkflowSubscriber;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Workflow\Definition;
 use Symfony\Component\Workflow\DefinitionBuilder;
@@ -16,7 +16,7 @@ use Symfony\Component\Workflow\Transition;
 use Symfony\Component\Workflow\Workflow;
 
 /**
- * @author Boris Koumondji <brexis@yahoo.fr>
+ * @author Boris Koumondji <Vimily@yahoo.fr>
  */
 class WorkflowRegistry
 {

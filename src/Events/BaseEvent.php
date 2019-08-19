@@ -1,11 +1,11 @@
 <?php
 
-namespace Brexis\LaravelWorkflow\Events;
+namespace Vimily\LaravelWorkflow\Events;
 
 use Symfony\Component\Workflow\Event\Event;
 
 /**
- * @author Boris Koumondji <brexis@yahoo.fr>
+ * @author Boris Koumondji <Vimily@yahoo.fr>
  */
 abstract class BaseEvent
 {

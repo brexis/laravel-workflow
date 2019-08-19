@@ -1,13 +1,13 @@
 <?php
 
-namespace Brexis\LaravelWorkflow\Events;
+namespace Vimily\LaravelWorkflow\Events;
 
 use Symfony\Component\Workflow\Event\Event;
 use Symfony\Component\Workflow\Event\GuardEvent as SymfonyGuardEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * @author Boris Koumondji <brexis@yahoo.fr>
+ * @author Boris Koumondji <Vimily@yahoo.fr>
  */
 class WorkflowSubscriber implements EventSubscriberInterface
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Brexis\LaravelWorkflow\Traits;
+namespace Vimily\LaravelWorkflow\Traits;
 
 use Workflow;
 
 /**
- * @author Boris Koumondji <brexis@yahoo.fr>
+ * @author Boris Koumondji <Vimily@yahoo.fr>
  */
 trait WorkflowTrait
 {

@@ -1,5 +1,5 @@
 {
-    "name": "brexis/laravel-workflow",
+    "name": "vimily/laravel-workflow",
     "description": "Integerate Symfony Workflow component into Laravel.",
     "keywords": ["workflow", "symfony", "laravel", "laravel5"],
     "license": "MIT",
@@ -13,7 +13,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Brexis\\LaravelWorkflow\\": "src/"
+            "Vimily\\LaravelWorkflow\\": "src/"
         }
     },
     "autoload-dev": {
@@ -27,10 +27,10 @@
         },
         "laravel": {
             "providers": [
-                "Brexis\\LaravelWorkflow\\WorkflowServiceProvider"
+                "Vimily\\LaravelWorkflow\\WorkflowServiceProvider"
             ],
             "aliases": {
-                "Workflow": "Brexis\\LaravelWorkflow\\Facades\\WorkflowFacade"
+                "Workflow": "Vimily\\LaravelWorkflow\\Facades\\WorkflowFacade"
             }
         }
     },
