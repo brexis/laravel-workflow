@@ -4,8 +4,7 @@ namespace Tests;
 use PHPUnit\Framework\TestCase;
 use Brexis\LaravelWorkflow\WorkflowRegistry;
 use ReflectionProperty;
-use Symfony\Component\Workflow\MarkingStore\MultipleStateMarkingStore;
-use Symfony\Component\Workflow\MarkingStore\SingleStateMarkingStore;
+use Symfony\Component\Workflow\MarkingStore\MethodMarkingStore;
 use Symfony\Component\Workflow\Workflow;
 use Symfony\Component\Workflow\StateMachine;
 use Tests\Fixtures\TestObject;
@@ -41,7 +40,7 @@ class WorkflowRegistryTest extends TestCase
         $markingStore = $markingStoreProp->getValue($workflow);
 
         $this->assertTrue($workflow instanceof Workflow);
-        $this->assertTrue($markingStore instanceof SingleStateMarkingStore);
+        $this->assertTrue($markingStore instanceof MethodMarkingStore);
     }
 
     public function testIfStateMachineIsRegistered()
@@ -77,7 +76,7 @@ class WorkflowRegistryTest extends TestCase
         $markingStore = $markingStoreProp->getValue($workflow);
 
         $this->assertTrue($workflow instanceof StateMachine);
-        $this->assertTrue($markingStore instanceof MultipleStateMarkingStore);
+        $this->assertTrue($markingStore instanceof MethodMarkingStore);
     }
 
 	public function testIfTransitionsWithSameNameCanBothBeUsed()
@@ -117,7 +116,7 @@ class WorkflowRegistryTest extends TestCase
         $markingStore = $markingStoreProp->getValue($workflow);
 
         $this->assertTrue($workflow instanceof StateMachine);
-        $this->assertTrue($markingStore instanceof SingleStateMarkingStore);
+        $this->assertTrue($markingStore instanceof MethodMarkingStore);
         $this->assertTrue($workflow->can($subject, 't1'));
 
         $workflow->apply($subject, 't1');
@@ -161,7 +160,7 @@ class WorkflowRegistryTest extends TestCase
         $markingStore = $markingStoreProp->getValue($workflow);
 
         $this->assertTrue($workflow instanceof StateMachine);
-        $this->assertTrue($markingStore instanceof SingleStateMarkingStore);
+        $this->assertTrue($markingStore instanceof MethodMarkingStore);
         $this->assertTrue($workflow->can($subject, 't1'));
         $this->assertTrue($workflow->can($subject, 't2'));
     }
