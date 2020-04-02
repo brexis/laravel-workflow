@@ -40,21 +40,21 @@ class WorkflowDumpCommand extends Command
     public function handle()
     {
         $workflowName = $this->argument('workflow');
-        $format       = $this->option('format');
-        $class        = $this->option('class');
-        $config       = Config::get('workflow');
+        $format = $this->option('format');
+        $class = $this->option('class');
+        $config = Config::get('workflow');
 
         if (!isset($config[$workflowName])) {
             throw new Exception("Workflow $workflowName is not configured.");
         }
 
         if (false === array_search($class, $config[$workflowName]['supports'])) {
-            throw new Exception("Workflow $workflowName has no support for class $class." .
+            throw new Exception("Workflow $workflowName has no support for class $class.".
                 ' Please specify a valid support class with the --class option.');
         }
 
-        $subject    = new $class;
-        $workflow   = Workflow::get($subject, $workflowName);
+        $subject = new $class;
+        $workflow = Workflow::get($subject, $workflowName);
         $definition = $workflow->getDefinition();
 
         $dumper = new GraphvizDumper();
