@@ -7,7 +7,6 @@ use Exception;
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Workflow\Dumper\GraphvizDumper;
-use Symfony\Component\Workflow\Workflow as SynfonyWorkflow;
 use Workflow;
 
 /**
@@ -40,18 +39,18 @@ class WorkflowDumpCommand extends Command
      */
     public function handle()
     {
-        $workflowName   = $this->argument('workflow');
-        $format         = $this->option('format');
-        $class          = $this->option('class');
-        $config         = Config::get('workflow');
+        $workflowName = $this->argument('workflow');
+        $format       = $this->option('format');
+        $class        = $this->option('class');
+        $config       = Config::get('workflow');
 
         if (!isset($config[$workflowName])) {
             throw new Exception("Workflow $workflowName is not configured.");
         }
 
         if (false === array_search($class, $config[$workflowName]['supports'])) {
-            throw new Exception("Workflow $workflowName has no support for class $class.".
-            ' Please specify a valid support class with the --class option.');
+            throw new Exception("Workflow $workflowName has no support for class $class." .
+                ' Please specify a valid support class with the --class option.');
         }
 
         $subject    = new $class;
@@ -63,7 +62,7 @@ class WorkflowDumpCommand extends Command
         $dotCommand = "dot -T$format -o $workflowName.$format";
 
         $process = new Process($dotCommand);
-        $process->setInput($dumper->dump($definition,null,$config[$workflowName]['options'] ?? []));
+        $process->setInput($dumper->dump($definition, null, $config[$workflowName]['options'] ?? []));
         $process->mustRun();
     }
 }

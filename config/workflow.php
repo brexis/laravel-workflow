@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'straight'   => [
+    'straight' => [
         'type'          => 'state_machine',
         'marking_store' => [
             'type' => 'single_state',
@@ -16,10 +16,10 @@ return [
             't2' => [
                 'from' => 'b',
                 'to'   => 'c',
-            ]
+            ],
         ],
-        'options' => [
-            'node'=>['fontname' => 'SimHei'],
+        'options'       => [
+            'node' => ['fontname' => 'SimHei'],
         ],
-    ]
+    ],
 ];
