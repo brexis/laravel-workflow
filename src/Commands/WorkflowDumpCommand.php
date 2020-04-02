@@ -53,7 +53,7 @@ class WorkflowDumpCommand extends Command
                 ' Please specify a valid support class with the --class option.');
         }
 
-        $subject = new $class;
+        $subject = new $class();
         $workflow = Workflow::get($subject, $workflowName);
         $definition = $workflow->getDefinition();
 
