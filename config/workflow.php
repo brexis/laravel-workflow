@@ -18,5 +18,8 @@ return [
                 'to'   => 'c',
             ]
         ],
+        'options' => [
+            'node'=>['fontname' => 'SimHei'],
+        ],
     ]
 ];
