@@ -9,6 +9,7 @@ use Symfony\Component\Workflow\DefinitionBuilder;
 use Symfony\Component\Workflow\MarkingStore\MarkingStoreInterface;
 use Symfony\Component\Workflow\MarkingStore\MultipleStateMarkingStore;
 use Symfony\Component\Workflow\MarkingStore\SingleStateMarkingStore;
+use Symfony\Component\Workflow\Metadata\InMemoryMetadataStore;
 use Symfony\Component\Workflow\Registry;
 use Symfony\Component\Workflow\StateMachine;
 use Symfony\Component\Workflow\SupportStrategy\InstanceOfSupportStrategy;
@@ -36,9 +37,10 @@ class WorkflowRegistry
     protected $dispatcher;
 
     /**
-     * WorkflowRegistry constructor
+     * WorkflowRegistry constructor.
      *
-     * @param  array $config
+     * @param array $config
+     *
      * @throws \ReflectionException
      */
     public function __construct(array $config)
@@ -56,10 +58,11 @@ class WorkflowRegistry
     }
 
     /**
-     * Return the $subject workflow
+     * Return the $subject workflow.
      *
-     * @param  object $subject
-     * @param  string $workflowName
+     * @param object $subject
+     * @param string $workflowName
+     *
      * @return Workflow
      */
     public function get($subject, $workflowName = null)
@@ -68,7 +71,7 @@ class WorkflowRegistry
     }
 
     /**
-     * Add a workflow to the subject
+     * Add a workflow to the subject.
      *
      * @param Workflow $workflow
      * @param string   $supportStrategy
@@ -79,26 +82,33 @@ class WorkflowRegistry
     }
 
     /**
-     * Add a workflow to the registry from array
+     * Add a workflow to the registry from array.
      *
-     * @param  string $name
-     * @param  array  $workflowData
+     * @param string $name
+     * @param array  $workflowData
+     *
      * @throws \ReflectionException
      */
     public function addFromArray($name, array $workflowData)
     {
         $builder = new DefinitionBuilder($workflowData['places']);
+        $transitionsMetadata = new \SplObjectStorage();
 
         foreach ($workflowData['transitions'] as $transitionName => $transition) {
             if (!is_string($transitionName)) {
                 $transitionName = $transition['name'];
             }
 
-            foreach ((array)$transition['from'] as $form) {
-                $builder->addTransition(new Transition($transitionName, $form, $transition['to']));
+            foreach ((array) $transition['from'] as $form) {
+                $currentTransition = new Transition($transitionName, $form, $transition['to']);
+                $builder->addTransition($currentTransition);
+                if (isset($transition['metadata'])) {
+                    $transitionsMetadata->attach($currentTransition, $transition['metadata']);
+                }
             }
         }
 
+        $builder->setMetadataStore(new InMemoryMetadataStore([], [], $transitionsMetadata));
         $definition = $builder->build();
         $markingStore = $this->getMarkingStoreInstance($workflowData);
         $workflow = $this->getWorkflowInstance($name, $workflowData, $definition, $markingStore);
@@ -109,12 +119,13 @@ class WorkflowRegistry
     }
 
     /**
-     * Return the workflow instance
+     * Return the workflow instance.
      *
-     * @param  String                $name
-     * @param  array                 $workflowData
-     * @param  Definition            $definition
-     * @param  MarkingStoreInterface $markingStore
+     * @param string                $name
+     * @param array                 $workflowData
+     * @param Definition            $definition
+     * @param MarkingStoreInterface $markingStore
+     *
      * @return Workflow
      */
     protected function getWorkflowInstance(
@@ -135,11 +146,13 @@ class WorkflowRegistry
     }
 
     /**
-     * Return the making store instance
+     * Return the making store instance.
      *
-     * @param  array $workflowData
-     * @return MarkingStoreInterface
+     * @param array $workflowData
+     *
      * @throws \ReflectionException
+     *
+     * @return MarkingStoreInterface
      */
     protected function getMarkingStoreInstance(array $workflowData)
     {
