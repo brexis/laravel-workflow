@@ -3,12 +3,12 @@
 namespace Brexis\LaravelWorkflow;
 
 use Brexis\LaravelWorkflow\Events\WorkflowSubscriber;
+use phpDocumentor\Reflection\DocBlock\Tags\Param;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Workflow\Definition;
 use Symfony\Component\Workflow\DefinitionBuilder;
 use Symfony\Component\Workflow\MarkingStore\MarkingStoreInterface;
-use Symfony\Component\Workflow\MarkingStore\MultipleStateMarkingStore;
-use Symfony\Component\Workflow\MarkingStore\SingleStateMarkingStore;
+use Symfony\Component\Workflow\MarkingStore\MethodMarkingStore;
 use Symfony\Component\Workflow\Registry;
 use Symfony\Component\Workflow\StateMachine;
 use Symfony\Component\Workflow\SupportStrategy\InstanceOfSupportStrategy;
@@ -58,8 +58,8 @@ class WorkflowRegistry
     /**
      * Return the $subject workflow
      *
-     * @param  object $subject
-     * @param  string $workflowName
+     * @param  object      $subject
+     * @param  string|null $workflowName
      * @return Workflow
      */
     public function get($subject, $workflowName = null)
@@ -144,18 +144,37 @@ class WorkflowRegistry
     protected function getMarkingStoreInstance(array $workflowData)
     {
         $markingStoreData = isset($workflowData['marking_store']) ? $workflowData['marking_store'] : [];
-        $arguments = isset($markingStoreData['arguments']) ? $markingStoreData['arguments'] : [];
+        $arguments = $this->getMarkingStoreArguments($markingStoreData);
 
         if (isset($markingStoreData['class'])) {
             $className = $markingStoreData['class'];
-        } elseif (isset($markingStoreData['type']) && $markingStoreData['type'] === 'multiple_state') {
-            $className = MultipleStateMarkingStore::class;
-        } else {
-            $className = SingleStateMarkingStore::class;
+
+            $class = new \ReflectionClass($className);
+
+            return $class->newInstanceArgs($arguments);
         }
 
-        $class = new \ReflectionClass($className);
+        return new MethodMarkingStore(...$arguments);
+    }
 
-        return $class->newInstanceArgs($arguments);
+    /**
+     * Get the arguments for the marking store
+     *
+     * @param  array $markingStoreData
+     * @return array
+     */
+    protected function getMarkingStoreArguments(array $markingStoreData)
+    {
+        $arguments = isset($markingStoreData['arguments']) ? $markingStoreData['arguments'] : [];
+
+        if (isset($markingStoreData['class']) || empty($arguments) || is_bool($arguments[0])) {
+            return $arguments;
+        }
+
+        $singleState = isset($markingStoreData['type']) && $markingStoreData['type'] === 'single_state';
+
+        array_unshift($arguments, $singleState);
+
+        return $arguments;
     }
 }

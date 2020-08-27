@@ -1,15 +1,15 @@
 {
     "name": "brexis/laravel-workflow",
     "description": "Integerate Symfony Workflow component into Laravel.",
-    "keywords": ["workflow", "symfony", "laravel", "laravel5", "laravel6"],
+    "keywords": ["workflow", "symfony", "laravel", "laravel5", "laravel6", "laravel7"],
     "license": "MIT",
     "require": {
         "php": ">=5.5.9",
-        "symfony/workflow": "^3.3 || ^4.0",
-        "symfony/process": "^3.3 || ^4.0",
-        "symfony/event-dispatcher": "^3.3 || ^4.0",
-        "illuminate/console": "5.3.* || 5.4.* || 5.5.* || 5.6.* || 5.7.* || 5.8.* || 6.*",
-        "illuminate/support": "5.3.* || 5.4.* || 5.5.* || 5.6.* || 5.7.* || 5.8.* || 6.*"
+        "symfony/workflow": "^3.3 || ^4.0 || ^5.0",
+        "symfony/process": "^3.3 || ^4.0 || ^5.0",
+        "symfony/event-dispatcher": "^3.3 || ^4.0 || ^5.0",
+        "illuminate/console": "5.3.* || 5.4.* || 5.5.* || 5.6.* || 5.7.* || 5.8.* || 6.* || 7.*",
+        "illuminate/support": "5.3.* || 5.4.* || 5.5.* || 5.6.* || 5.7.* || 5.8.* || 6.* || 7.*"
     },
     "autoload": {
         "psr-4": {
