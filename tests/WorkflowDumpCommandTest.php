@@ -1,9 +1,9 @@
 <?php
+
 namespace Tests {
 
     use Brexis\LaravelWorkflow\Commands\WorkflowDumpCommand;
     use Mockery;
-    use PHPUnit\Framework\TestCase;
 
     class WorkflowDumpCommandTest extends TestCase
     {
