@@ -24,12 +24,12 @@ trait WorkflowTrait
         return Workflow::get($this, $workflow)->getEnabledTransitions($this);
     }
 
-    public function getCurrentPlace()
+    public function getMarking()
     {
         return $this->{$markingProperty};
     }
 
-    public function setCurrentPlace($currentPlace, $context = [])
+    public function setMarking($currentPlace, $context = [])
     {
         $this->{$markingProperty} = $currentPlace;
     }
